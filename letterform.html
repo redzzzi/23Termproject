@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>미리보기</title>
+</head>
+<body style="background-image: url();">
+    <script>
+        window.onload = function() {
+            // localStorage에서 배경 이미지 경로 가져오기
+            var backgroundImage = localStorage.getItem("backgroundImage");
+            
+            // 배경 이미지 설정
+            if (backgroundImage) {
+                document.body.style.backgroundImage = `url(${backgroundImage})`;
+            } else {
+                console.log("이미지 로딩 에러");
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head><title>비밀번호 확인</title></head>
+
+<style>
+    header {
+        color:#ffffff;
+        font-size: 25px;
+        text-shadow: 2px 2px 1px #ce5b82;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        margin-left: -15px;
+    }
+    body {
+        font-family: '한컴 말랑말랑';
+        color: white;
+        background-color:#ffc7d6;
+        margin-left: 70px;
+        margin-bottom: 10px;
+    }
+    .container {
+        display: flex;
+    }
+    .check_pw input[type="password"] {
+        font-family: '한컴 말랑말랑';
+        font-size: 20px;
+        padding: 5px 5px;
+        color: rgb(234, 109, 149);
+        background-color: #ffe9f1;
+        border-color: #ffc7d6;
+        outline: none;
+        &:hover {
+            color: rgb(237, 41, 103);
+        }
+    }
+    .check_pw button {
+        font-family: '한컴 말랑말랑';
+        font-size: 20px;
+        padding: 5px 10px;
+        color: rgb(234, 109, 149);
+        background-color: #ffe9f1;
+        border-color: #ffc7d6;
+        &:hover {
+            color: rgb(237, 41, 103);
+        }
+    }
+    #result {
+        display: flex;
+        font-size: 20px;
+        margin-left: 50px;
+    }
+</style>
+
+<body>
+    <header>비밀 번호를 입력해주세요!</header>
+    <div class="container">
+        <section class="check_pw">
+            <input type="password" id="pwcheck" onkeyup="handleEnterKey(event)">
+            <button onclick="pwcheck()" id="judg">확인</button>
+        </section>
+        <section id="result"></section>
+    </div>
+</body>
+</html>
+
+<script>
+    function pwcheck() {
+        var inputPW = document.getElementById("pwcheck").value;
+        var storedData = localStorage.getItem('formDataArray');
+        if (!inputPW) {
+                alert("뭐라도 입력을 해야 내가 알려줄 거 아니야!!");
+                return;
+            }
+        if (storedData) {
+            var formDataArray = JSON.parse(storedData);
+            var matchingData = formDataArray.filter(function (formData) {
+                return formData.zipcode === inputPW;
+            });
+            if (matchingData.length > 0) {
+                // 비밀번호가 일치하는 경우
+                showDataOnPasswordInput(matchingData);
+            } else {
+                // 비밀번호가 일치하지 않는 경우
+                alert("해당 번호로 온 편지가 없습니다!");
+            } 
+        } else {
+            // 로컬 스토리지에 저장된 데이터가 없는 경우
+            alert("저장된 데이터가 없어요ㅠ.ㅠ");
+        }
+    }
+
+    function showDataOnPasswordInput(formDataArray) {
+        var str = "";
+        formDataArray.forEach(function (formData) {
+            str += "To. " + formData.recipient + "<br>" + "<br>";
+            var letterContent = formData.letterContent;
+            for (var i = 0; i < letterContent.length; i += 20) {
+                str += letterContent.substring(i, i + 20) + "<br>";
+            }
+            str += "<br>";
+            str += "From. " + formData.sender + "<br>";
+        });
+
+        // 결과를 result 요소에 출력
+        var resultElement = document.getElementById("result");
+        if (resultElement) {
+            resultElement.innerHTML = str;
+        } else {
+            alert("결과를 표시할 요소를 찾을 수 없습니다.");
+        }
+    }
+
+    function handleEnterKey(event) {
+        if (event.keyCode === 13) {
+            pwcheck();
+        }
+    }
+
+//    function showDataOnPasswordInput(formDataArray) {
+//        var str = "";
+//        str += "To. " + formData.recipient + "<br>" + "<br>";
+//        var letterContent = formData.letterContent;
+//        for (var i = 0; i < letterContent.length; i += 20) {
+//        str += letterContent.substring(i, i + 20) + "<br>";
+//        }
+//        str += "<br>";
+//        str += "From. " + formData.sender + "<br>";
+//        document.getElementById("result").innerHTML = str;
+
+        // 결과를 result 요소에 출력
+//        var resultElement = document.getElementById("result");
+//        if (resultElement) {
+//            resultElement.innerHTML = str;
+//        } else {
+//            alert("결과를 표시할 요소를 찾을 수 없습니다.");
+//        }
+
+        // 예시: 출력된 데이터를 alert로 보여줌
+        // alert(str);
+//    }
+</script>
+
