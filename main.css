@@ -6,6 +6,9 @@ body {
     line-height: 2.0; /* 글자 줄 간격 */
     font-family: '한컴 말랑말랑';
     font-family: var(한컴 말랑말랑);
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .container {
@@ -44,9 +47,9 @@ nav {
     background-color:#ffa3c2;
     display: flex;
     font-size: 20px;
-    width: 1200px;
-    height: 70px;
-    gap: 40px;
+    width: 72rem;
+    height: 65px;
+    gap: 3rem;
     margin: 0 auto;
     margin-bottom: 100px;
 }
