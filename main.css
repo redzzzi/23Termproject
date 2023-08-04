@@ -113,6 +113,10 @@ section h1 {
     margin-right: 60px;
     margin-bottom: 70px;
     float: right;
+    transition: transform 0.3s ease-in-out;
+    &:hover {
+        transform: scale(1.1);
+    }
 }
 section .button-container {
     display: flex;
